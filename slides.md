@@ -20,13 +20,13 @@ class: text-center
 
 <div class="title-fg">
 
-<div class="muted text-sm mb-6">will@durham:~$ ./colloquium --budget=0</div>
+<div class="muted text-sm mb-6">will@durham:~$ ./colloquium --budget=0 --move-to-monday=1</div>
 
 <h1 class="blink !text-5xl !mb-4">Doing Astrophysics<br>As A Cheapskate</h1>
 
 <div class="text-lg mt-8">Will Roper</div>
 
-<div class="muted text-sm mt-1">Durham Colloquium · 26 October 2026</div>
+<div class="muted text-sm mt-1">Durham Astronomy Colloquium · 26 October 2026</div>
 
 </div>
 
@@ -39,23 +39,19 @@ Title. Cheapskate framing: compute is the currency, and I'm going to show you ho
 
 ---
 
-# whoami
+# Who Am I?
 
-<div class="grid grid-cols-[1fr_auto] gap-10 items-center mt-4">
+<div class="body"><div class="grid grid-cols-[1fr_auto] gap-10 items-center">
 <div>
 
 - **Research Software Engineer**, OxRSE, Oxford
-- I run (and break) simulations
+- I develop and run (and break) simulations
+- FLARES: high-z galaxy evolution
 - SWIFT zooms, Synthesizer, too many CLI tools
 
-<div class="term mt-10 text-sm">
-<div class="muted">$ history | head</div>
-music tech → touring band → chef → access course → MPhys → PhD (Sussex) → research fellow (Sussex) → OxRSE
 </div>
-
-</div>
-<img src="/img/me.jpg" class="h-100 rounded-lg" alt="Will" />
-</div>
+<img src="/img/whoami_chibi.jpg" class="h-88 rounded-lg" alt="Chibi Will: laptop, galaxies, supercomputer, guitar, chef hat and a coin purse" />
+</div></div>
 
 <!--
 Quick intro. I sit on both sides, astrophysics and research software, which is why this talk is about how we spend compute.
@@ -63,17 +59,16 @@ Quick intro. I sit on both sides, astrophysics and research software, which is w
 
 ---
 
-# The Plan
+# This Talk In A Nutshell
 
 <div class="term mt-6 text-lg leading-loose">
 <div class="term-bar"><span /><span /><span /></div>
 
 <div>$ cat talk.txt</div>
-<div v-click><span class="accent">[1]</span> how astrophysics actually works</div>
+<div v-click><span class="accent">[1]</span> studying the Universe with simulations</div>
 <div v-click><span class="accent">[2]</span> what a Universe costs</div>
 <div v-click><span class="accent">[3]</span> cheapskate trick #1: <strong>zoom simulations</strong></div>
-<div v-click><span class="accent">[4]</span> making zooms cheap in <strong>SWIFT</strong></div>
-<div v-click><span class="accent">[5]</span> cheapskate trick #2: <strong>Synthesizer</strong></div>
+<div v-click><span class="accent">[4]</span> cheapskate trick #2: <strong>Synthesizer</strong></div>
 
 </div>
 
@@ -112,33 +107,17 @@ Click 3: out comes a simulated universe (EAGLE).
 -->
 
 ---
-layout: full
-class: full-bleed
----
-
-<div class="absolute inset-0">
-  <video src="/video/eagle_galaxy_evolution.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video>
-</div>
-
-<div class="credit">EAGLE, 12.5 Mpc box: galaxy evolution</div>
-
----
 
 # You Can't Have It All
 
-<div class="grid grid-cols-[1fr_1.15fr] gap-10 mt-2 items-center">
-<div>
+<div class="body text-xl"><div class="mx-auto w-fit">
 
 - **Resolution**: the physics inside galaxies
 - **Volume**: the rare objects and the statistics
 
-<div class="term mt-10">cost ∝ N<sub>particles</sub> × N<sub>steps</sub><br><span class="warn">both grow with resolution <em>and</em> volume</span></div>
+<div class="term mt-12 text-lg w-fit">cost ∝ N<sub>particles</sub> × N<sub>steps</sub><br><span class="warn">both grow with resolution <em>and</em> volume</span></div>
 
-</div>
-<img src="/img/volume_resolution.png" class="fig bg-white h-108 mx-auto" alt="simulation volume vs resolution" />
-</div>
-
-<div class="credit">Plot: Chris Lovell</div>
+</div></div>
 
 ---
 
@@ -151,15 +130,15 @@ class: full-bleed
 <tr><td>TNG100-1</td><td>111 Mpc</td><td>2 × 1820³</td><td class="r">18 M</td></tr>
 <tr><td>FLAMINGO L2p8_m9</td><td>2.8 Gpc</td><td>2 × 5040³ + 2800³ ν</td><td class="r">31 M</td></tr>
 <tr><td>TNG300-1</td><td>303 Mpc</td><td>2 × 2500³</td><td class="r">35 M</td></tr>
-<tr><td>COLIBRE L200m6</td><td>200 Mpc</td><td>4 × 3008³</td><td class="r">72 M</td></tr>
+<tr><td>COLIBRE L200m6</td><td>200 Mpc</td><td>5 × 3008³</td><td class="r">72 M</td></tr>
 <tr><td>TNG50-1</td><td>52 Mpc</td><td>2 × 2160³</td><td class="r">~130 M</td></tr>
 <tr><td>MillenniumTNG</td><td>740 Mpc</td><td>2 × 4320³</td><td class="r">170 M</td></tr>
-<tr class="node"><td>ASTRID</td><td>370 Mpc</td><td>2 × 5500³</td><td class="r">3 M node-h</td></tr>
-<tr class="node"><td>Frontier-E (CRK-HACC)</td><td>4.7 Gpc</td><td>2 × 12600³</td><td class="r">1.7 M node-h</td></tr>
+<tr class="node"><td>ASTRID</td><td>250 Mpc/h</td><td>2 × 5500³</td><td class="r">3 M node-h</td></tr>
+<tr class="node"><td>Frontier-E (CRK-HACC)</td><td>4.7 Gpc</td><td>~4 × 10¹²</td><td class="r">1.7 M node-h</td></tr>
 </tbody>
 </table>
 
-<div class="muted text-xs mt-2">core-hours unless stated · hydro runs · comoving boxes</div>
+<div class="muted text-xs mt-2">costs as reported in each paper · core-hours unless stated · hydro runs · comoving boxes</div>
 
 <div class="credit"><a href="https://arxiv.org/abs/1407.7040" target="_blank">Schaye+15</a>, <a href="https://arxiv.org/abs/1707.03406" target="_blank">Pillepich+18</a>, <a href="https://arxiv.org/abs/1902.05553" target="_blank">Pillepich+19</a>, <a href="https://arxiv.org/abs/2306.04024" target="_blank">Schaye+23</a>, <a href="https://arxiv.org/abs/2508.21126" target="_blank">Schaye+25</a>, <a href="https://arxiv.org/abs/2210.10060" target="_blank">Pakmor+23</a>, <a href="https://arxiv.org/abs/2111.01160" target="_blank">Bird+22</a>, <a href="https://arxiv.org/abs/2510.03557" target="_blank">Frontiere+25</a></div>
 
@@ -183,30 +162,12 @@ layout: full
 # How Much Is That Universe In The Window?
 
 <div class="h-[86%]">
-<LiveEmbed src="https://www.christopherlovell.co.uk/cosmo-carta/" fallback="/img/cosmo_carta_offline.png" />
+<LiveEmbed src="https://www.christopherlovell.co.uk/cosmo-carta/" fallback="/img/cosmo_carta_offline.png" :width="1920" />
 </div>
 
 <!--
 Live: cosmo-carta. Walk through flagship volumes vs resolution. Points to hit: EAGLE, TNG, FLAMINGO, COLIBRE; where the gaps are.
 -->
-
----
-
-# Most Of The Universe Is Boring
-
-<div class="grid grid-cols-[1fr_1fr] gap-10 mt-2 items-center">
-<div>
-
-- Voids, filaments, typical haloes: **boring**
-- First massive galaxies, proto-clusters: **rare**
-
-<div v-click class="mt-12 text-xl">So <span class="accent">only pay for the bits you care about.</span></div>
-
-</div>
-<img src="/img/flamingo.png" class="fig h-108 mx-auto" alt="FLAMINGO large-scale structure" />
-</div>
-
-<div class="credit">FLAMINGO project</div>
 
 ---
 class: section-card
@@ -215,6 +176,30 @@ class: section-card
 # ./zoom --only-the-good-bits
 
 <div class="muted mt-4">cheapskate trick #1: zoom simulations</div>
+
+---
+
+# Most Of The Universe Is Boring
+
+<div class="body">
+<div class="grid grid-cols-[1fr_1fr] gap-10 mt-2 items-center">
+<div>
+
+- Any one science question only cares about **specific** objects
+- First galaxies? **Overdense**, early-forming regions
+- Milky Way analogues? **Local Group**-like haloes
+- Clusters? The most **massive** haloes
+- Everything else is, *for that question*, boring
+
+<div v-click class="mt-10 text-xl">So <span class="accent">only pay for the bits your question cares about.</span></div>
+
+</div>
+<img src="/img/flamingo.png" class="fig h-108 mx-auto" alt="FLAMINGO large-scale structure" />
+</div>
+
+</div>
+
+<div class="credit">FLAMINGO project</div>
 
 ---
 
@@ -238,6 +223,32 @@ class: section-card
 <div class="credit">Schematic: Chris Lovell</div>
 
 ---
+
+# FLARES: Zooming In On The First Galaxies
+
+<div class="body">
+<div class="grid grid-cols-[1.1fr_1fr] gap-10 mt-2 items-center">
+<div>
+
+- **40 regions** from a (3.2 cGpc)³ parent
+- Spanning the full range of **overdensity**, re-weighted to the global distribution
+- EAGLE physics, EAGLE resolution, *way* more volume
+
+<div class="muted text-sm mt-8"><a href="https://arxiv.org/abs/2004.07283" target="_blank">Lovell+21</a>, <a href="https://arxiv.org/abs/2008.06057" target="_blank">Vijayan+21</a>, after GIMIC (<a href="https://arxiv.org/abs/0906.4350" target="_blank">Crain+09</a>)</div>
+
+</div>
+<img src="/img/zoom_resolution_volume.png" class="fig h-108 mx-auto bg-white" alt="FLARES on the volume-resolution plane" />
+</div>
+
+</div>
+
+<div class="credit">Plot: Stephen Wilkins</div>
+
+<!--
+Key point: the weighting. Because we know each region's overdensity from the parent, we can stitch the regions back into a representative global distribution function.
+-->
+
+---
 layout: full
 class: full-bleed
 ---
@@ -249,26 +260,47 @@ class: full-bleed
 <div class="credit">FLARES: 40 resimulated regions</div>
 
 ---
+clicks: 2
+---
 
-# FLARES: Zooming In On The First Galaxies
+# Putting The Universe Back Together
 
-<div class="grid grid-cols-[1.1fr_1fr] gap-10 mt-2 items-center">
+<div class="body"><div class="grid grid-cols-[1fr_1fr] gap-8 items-center">
+<div class="text-center">
+  <div class="relative h-90">
+    <img v-click.hide="1" src="/img/flares_sampling_bins.png" class="absolute inset-0 m-auto max-h-full fig bg-white" alt="overdensity PDF of the parent box vs the resimulated regions" />
+    <img v-click="1" src="/img/flares_gsmf_delta.png" class="absolute inset-0 m-auto max-h-full fig bg-white" alt="stellar mass function split by region overdensity at z = 9" />
+  </div>
+  <div class="text-xs muted mt-2"><span v-if="$clicks < 1">parent box (dashed) vs our regions (solid): overdense regions <strong>oversampled</strong></span><span v-else>z = 9: strongly <strong>environment</strong>-dependent</span></div>
+</div>
 <div>
 
-- **40 regions** from a (3.2 cGpc)³ parent
-- Spanning the full range of **overdensity**, re-weighted to the global distribution
-- EAGLE physics, EAGLE resolution, *way* more volume
+- Regions picked to **oversample** the rare, overdense ones
+- So a naive average is biased high
 
-<div class="muted text-sm mt-8"><a href="https://arxiv.org/abs/2004.07283" target="_blank">Lovell+21</a>, <a href="https://arxiv.org/abs/2008.06057" target="_blank">Vijayan+21</a></div>
+<div v-click="2" class="mt-6">Fix: weight each region by how common its overdensity <em>really</em> is:</div>
+
+<div v-click="2" class="text-sm mt-4">
+
+$$
+f_j = \sum_i \frac{w_{{\rm true},i}}{w_{{\rm sample},i}}\, w_{ij},
+\qquad
+\phi(X) = \sum_j f_j\, \phi_j(X)
+$$
 
 </div>
-<img src="/img/zoom_resolution_volume.png" class="fig h-108 mx-auto bg-white" alt="FLARES on the volume-resolution plane" />
-</div>
 
-<div class="credit">Plot: Stephen Wilkins</div>
+<div v-click="2" class="text-xs muted mt-3">i: overdensity bins in log(1+δ) · j: regions · w<sub>ij</sub>: fraction of region j in bin i</div>
+
+</div>
+</div></div>
+
+<div class="credit"><a href="https://arxiv.org/abs/2004.07283" target="_blank">Lovell+21</a> (FLARES I), after GIMIC (<a href="https://arxiv.org/abs/0906.4350" target="_blank">Crain+09</a>)</div>
 
 <!--
-Key point: the weighting. Because we know each region's overdensity from the parent, we can stitch the regions back into a representative global distribution function.
+Click 0: the parent's overdensity PDF (log-normal, sigma ~0.05) vs the resimulated grid points: we deliberately oversample the high-overdensity tail (that's where the rare massive galaxies live).
+Click 1: the GSMF depends strongly on overdensity, so you can't just stack regions.
+Click 2: the weighting. Bin log(1+delta) into 50 bins; w_true,i is the parent fraction in bin i, w_sample,i the sum over regions of their fraction in bin i; each region j gets f_j = sum_i r_i w_ij with r_i = w_true/w_sample, and sum_j f_j = 1. The composite distribution function is the f_j-weighted sum. Same idea TESSERA uses, but with an emulator in place of the discrete sum.
 -->
 
 ---
@@ -320,13 +352,22 @@ $$
 <div class="credit">Proof of concept: <a href="https://arxiv.org/abs/2604.17981" target="_blank">arXiv:2604.17981</a></div>
 
 ---
-clicks: 4
+layout: center
+class: text-center
+---
+
+<img src="/tessera/tessera_dark.png" class="w-[70%] mx-auto" alt="TESSERA" />
+
+<div class="muted mt-8 text-lg">a suite of zooms for emulation and inference</div>
+
+---
+clicks: 5
 ---
 
 # The TESSERA Pipeline
 
 <div class="body">
-<div class="flex flex-col gap-10 items-center">
+<div class="flex flex-col gap-6 items-center">
   <div class="flex items-end gap-4">
     <div class="text-center"><img src="/tessera/image31.webp" class="h-52 rounded" alt="PM parent" /><div class="text-xs muted mt-1">pmwd PM parents · (1.6 Gpc/h)³</div></div>
     <span v-click="1" class="accent text-3xl mb-14">→</span>
@@ -334,16 +375,19 @@ clicks: 4
     <span v-click="2" class="accent text-3xl mb-14">→</span>
     <div v-click="2" class="text-center"><img src="/tessera/zoom_cutout_P00485.webp" class="h-52 rounded" alt="SWIFT zoom region" /><div class="text-xs muted mt-1">SWIFT zooms · (50 Mpc/h)³ · 1 node each</div></div>
   </div>
-  <div class="flex items-center gap-8">
-    <div v-click="4" class="text-center"><img src="/img/synthesizer_logo.png" class="h-28 mx-auto" alt="Synthesizer" /><div class="text-xs muted mt-1">Synthesizer: emission</div></div>
+  <div v-click="3" class="accent text-3xl self-end -my-8" style="margin-right: 8.6rem">↓</div>
+  <div class="flex items-center gap-8 self-end mr-6">
+    <div v-click="5" class="text-center"><img src="/img/synthesizer_logo.png" class="h-28 mx-auto" alt="Synthesizer" /><div class="text-xs muted mt-1">Synthesizer: emission</div></div>
+    <span v-click="5" class="accent text-3xl">←</span>
+    <div v-click="4" class="text-center"><img src="/tessera/shark.png" class="h-24 bg-white rounded p-1 mx-auto" alt="SHARK" /><div class="text-xs muted mt-1">SHARK: galaxies + SFHs</div></div>
     <span v-click="4" class="accent text-3xl">←</span>
-    <div v-click="3" class="text-center"><img src="/tessera/shark.png" class="h-24 bg-white rounded p-1 mx-auto" alt="SHARK" /><div class="text-xs muted mt-1">SHARK: galaxies + SFHs</div></div>
+    <div v-click="3" class="text-center"><div class="h-32 flex justify-center"><MergerTree /></div><div class="text-xs muted mt-1">HBT-HERONS: subhaloes + merger trees</div></div>
   </div>
 </div>
 
 </div>
 
-<div class="credit">Li+22 (pmwd), Lagos+18,23 (SHARK), <a href="https://arxiv.org/abs/2508.03888" target="_blank">Lovell+25</a>, <a href="https://arxiv.org/abs/2506.15811" target="_blank">Roper+26</a> (Synthesizer)</div>
+<div class="credit">Li+22 (pmwd), <a href="https://arxiv.org/abs/2502.06932" target="_blank">Forouhar Moreno+25</a> (HBT-HERONS), Lagos+18,23 (SHARK), <a href="https://arxiv.org/abs/2508.03888" target="_blank">Lovell+25</a>, <a href="https://arxiv.org/abs/2506.15811" target="_blank">Roper+26</a> (Synthesizer)</div>
 
 ---
 layout: full
@@ -358,7 +402,7 @@ class: full-bleed
 
 ---
 
-# Turns Out It Works
+# A Thousand Zooms' Worth Of Distributions
 
 <div class="grid grid-cols-2 gap-4 mt-1 items-center">
   <img src="/tessera/hmf_suite_z0_z2.png" class="fig bg-white max-h-48 mx-auto" alt="halo mass functions" />
@@ -370,6 +414,26 @@ class: full-bleed
 <div class="text-center mt-2 text-sm">Every zoom in <span class="theory">blue</span>, all regions combined in <span class="bad">red</span>.</div>
 
 <div class="credit !bottom-0.5">HMF (SWIFT) · GSMF (SHARK) · LF + colours (Synthesizer)</div>
+
+---
+
+# How Good Is The Emulator?
+
+<div class="body">
+<div class="grid grid-cols-3 gap-4">
+  <div class="text-center"><div class="text-sm mb-2"><span class="accent">halo mass function</span> <span class="muted">· SWIFT</span></div><img src="/tessera/hmf_fractional_fof_z0.png" class="fig bg-white" alt="HMF emulator fractional error on held-out regions" /></div>
+  <div class="text-center"><div class="text-sm mb-2"><span class="accent">stellar mass function</span> <span class="muted">· SHARK</span></div><img src="/tessera/smf_fractional_shark_z0.png" class="fig bg-white" alt="SMF emulator fractional error on held-out regions" /></div>
+  <div class="text-center"><div class="text-sm mb-2"><span class="accent">g-band LF</span> <span class="muted">· Synthesizer</span></div><img src="/tessera/lf_fractional_shark_g_z0.png" class="fig bg-white" alt="g-band LF emulator fractional error on held-out regions" /></div>
+</div>
+
+<div class="text-center mt-6">Unseen regions: median error ≈ 0, scatter <strong>tracks the Poisson noise</strong>.</div>
+</div>
+
+<div class="credit">measured / emulated − 1 · band: 16–84% of held-out regions · dashed: Poisson 1σ for the median region · z = 0</div>
+
+<!--
+Fractional error of the emulator on regions it never saw in training (104 held-out regions for the HMF, 818 for SMF and LF). Median sits on zero; the 16-84% scatter tracks the Poisson noise of an individual region until the bright/massive end where there are only a handful of objects.
+-->
 
 ---
 
@@ -417,6 +481,7 @@ class: section-card
 
 # Why Zooms Are Hard: The Balancing Act
 
+<div class="body">
 <div class="grid grid-cols-[1fr_1fr] gap-10 mt-2 items-center">
 <div>
 
@@ -430,6 +495,8 @@ class: section-card
 <img src="/img/balancing_grid.png" class="h-108 mx-auto" alt="background grid with nested zoom cells" />
 </div>
 
+</div>
+
 ---
 
 # Cell Construction: Three Kinds Of Cell
@@ -440,14 +507,13 @@ class: section-card
 
 ---
 
-# Play With The Geometry
+# Exploring The Geometry
 
-<ZoomCellExplorer class="mt-2" />
+<div class="body"><ZoomCellExplorer /></div>
 
 <!--
-Interactive. Defaults are the real test zoom: 3.2 Gpc box, 63 background cells per side, a 30 Mpc region, depth 4 -> 16^3 zoom cells.
-Show: more background cells -> smaller void -> finer zoom cells at fixed depth. Grow the region past a background cell and the void jumps to 2^3 cells. Depth sets the zoom cell size.
-Toy model: the real code has more nuance (padding rules etc).
+Interactive, follows zoom_init.c (zoom_region_init). The high-res particle extent is padded by region_pad_factor; the background grid is either set or auto-chosen (floor(L/max_dim), odd, shifted so the padded region sits inside one cell, min 8); the void is the background cells covering the padded region; the zoom region IS the void and its cells are the void cells split zoom_top_level_depth times.
+Show: auto mode gives a single void cell. Turn auto off and pick an even cdim: the box centre lands on a cell edge, the void becomes 2^3 cells and the achieved pad factor doubles (warning). Shrink bkg cells relative to the region to hit the "too many zoom regions" warning/error.
 -->
 
 ---
@@ -467,14 +533,13 @@ Toy model: the real code has more nuance (padding rules etc).
 
 ---
 
-# Where Do All These Tasks Come From?
+# The Birds, The Bees, And The Gravity Tasks
 
 <div class="body"><PairTaskHistogram /></div>
 
 <!--
-Interactive, toy model: all pairs of 16^3 zoom cells (3.17 Mpc each) binned by their minimum separation. r_FMM fixed (illustrative, 9.5 Mpc).
-Pairs closer than min(r_FMM, r_mesh) are pair tasks; between r_FMM and r_mesh they are multipole-only; beyond r_mesh the mesh does it all.
-Presets: global 1024^3 mesh on 3.2 Gpc -> r_mesh 17.6 Mpc; adding a 512^3 zoom mesh -> 1.7 Mpc, leaving only neighbouring cells.
+Interactive, toy model. 1 Gpc parent, the 30 Mpc zoom region from the geometry slide: 16^3 zoom cells of 2.16 Mpc. All pairs of zoom cells binned by minimum separation. The slider sets the FFT mesh side N; with SWIFT defaults r_mesh = 4.5 x 1.25 x L/N. Pairs closer than min(r_FMM, r_mesh) are pair tasks, between r_FMM and r_mesh multipole-only, beyond r_mesh the mesh does it all. r_FMM is illustrative (3 zoom cells).
+Show: small mesh -> r_mesh bigger than the whole zoom region -> everything is a task. Push N up -> tasks fall. But you hit 1290 (N^3 > 2^31) without a distributed FFT. Leave that hanging: it is what the second mesh solves later.
 -->
 
 ---
@@ -487,13 +552,13 @@ Presets: global 1024^3 mesh on 3.2 Gpc -> r_mesh 17.6 Mpc; adding a 512^3 zoom m
 
 - Pairs the mesh handles **exit immediately**
 - So check the mesh *while* splitting
-- **~90%** fewer pair tasks
+- **70–90%** fewer pair tasks
 - Up to **25%** faster, for *every* SWIFT run
 
 </div>
 <div class="relative h-100">
-  <img v-click.hide src="/img/gravity_pair_tasks.png" class="absolute inset-0 m-auto max-h-full fig" alt="gravity pair tasks" />
-  <img v-click src="/img/task_counts.png" class="absolute inset-0 m-auto max-h-full fig" alt="task counts before and after" />
+  <img v-click.hide="1" src="/img/gravity_pair_tasks.png" class="absolute inset-0 m-auto max-h-full fig" alt="gravity pair tasks" />
+  <img v-click="1" src="/img/task_counts.png" class="absolute inset-0 m-auto max-h-full fig" alt="task counts before and after" />
 </div>
 </div>
 
@@ -505,14 +570,21 @@ The most cheapskate fix of all: the cheapest work is the work you never do.
 
 ---
 
-# The Unavoidable: Partitioning
+# Have Less, Do Less -> Win (For Everyone)
 
-<ZoomCommsExplorer class="mt-2" />
+<div class="body"><div class="grid grid-cols-[1fr_1.2fr] gap-8 items-center">
+<div>
+
+- FLAMINGO-DMO-L1000N1800: **not a zoom**
+- Run by Matthieu, not me <span class="muted"><s>lying</s></span> being selective
+- Saving **grows with time** as the cell hierarchy gets deeper
+
+</div>
+<img src="/img/flamingo_dmo_speedup.png" class="fig bg-white max-h-108 mx-auto" alt="scale factor vs wall-clock time, master vs branch, FLAMINGO DMO L1000N1800" />
+</div></div>
 
 <!--
-Interactive, toy 2D model: 32^2 background cells, one void cell holding 16^2 zoom cells. Ranks get equal angular wedges around the zoom region: balanced, but every rank owns part of the zoom region and the background around it.
-Every cross-rank pair task is a comm: background neighbours, zoom pairs within r_mesh, and (worst case, global mesh only) the background cells around the void talk to every zoom cell.
-Show global only, slide ranks up, then hit "+ zoom mesh". That's the motivation for the second mesh.
+Same pair-task change on a big periodic DMO run: the branch reaches z = 0 in ~59 h, master is only at a ~ 0.67 by then. Being a cheapskate in shared code pays off for everyone.
 -->
 
 ---
@@ -525,6 +597,30 @@ Show global only, slide ranks up, then hit "+ zoom mesh". That's the motivation 
 
 <!--
 3.2 Gpc box, 63^3 background cells, global mesh 1024^3. Zoom mesh 512^3 over the zoom region + 1 background cell (0.30 Mpc mesh cells).
+-->
+
+---
+
+# It Genuinely Seems To Work…
+
+<div class="body">
+<div class="grid grid-cols-[1fr_1.5fr] gap-8 mt-2 items-center">
+<div>
+
+- 3.2 Gpc parent, 30 Mpc zoom
+- Boosted global mesh (1280³) vs global 1024³ + zoom 512³
+
+<div class="big-num mt-8">~25%</div>
+<div>less wall-clock</div>
+
+</div>
+<img src="/img/hr_mesh.png" class="fig bg-white max-h-108 mx-auto" alt="wall-clock time: global mesh vs global + zoom mesh" />
+</div>
+
+</div>
+
+<!--
+~700^3 particles, DMO. Read off the plot: ~17.9 h vs ~13.5 h cumulative wall-clock at a = 0.175.
 -->
 
 ---
@@ -547,29 +643,9 @@ Hydro is isolated to the zoom region; baryons leaving it are converted to dark m
 
 ---
 
-# It Genuinely Seems To Work…
+# All That, For A 50% Speed Up…
 
-<div class="grid grid-cols-[1fr_1.5fr] gap-8 mt-2 items-center">
-<div>
-
-- 3.2 Gpc parent, 30 Mpc zoom
-- Boosted global mesh (1280³) vs global 1024³ + zoom 512³
-
-<div class="big-num mt-8">~25%</div>
-<div>less wall-clock</div>
-
-</div>
-<img src="/img/hr_mesh.png" class="fig bg-white max-h-108 mx-auto" alt="wall-clock time: global mesh vs global + zoom mesh" />
-</div>
-
-<!--
-~700^3 particles, DMO. Read off the plot: ~17.9 h vs ~13.5 h cumulative wall-clock at a = 0.175.
--->
-
----
-
-# Master Is Faster Too Now…
-
+<div class="body">
 <div class="grid grid-cols-[1.4fr_1fr] gap-8 mt-2 items-center">
 <img src="/img/master_faster.png" class="fig bg-white max-h-108 mx-auto" alt="zoom branch vs master runtime" />
 <div>
@@ -577,15 +653,44 @@ Hydro is isolated to the zoom region; baryons leaving it are converted to dark m
 <div class="big-num">~50%</div>
 <div>faster than master</div>
 
-<div class="muted mt-6 text-sm">(it was 70%... until the general fixes landed in master too)</div>
-
-<img src="/img/zoom_scaling.png" class="fig bg-white h-44 mt-6" alt="strong scaling with physics" />
-
+<div class="muted mt-6 text-sm">(it was 70%... but the pair task improvements landed in master too and closed the gap)</div>
 </div>
+</div>
+
 </div>
 
 <!--
-The gap shrank because the optimisations benefit every SWIFT run: being a cheapskate in a shared code helps everyone. Zooms scale with full physics, and MPI zoom runs are now possible.
+The gap shrank because the optimisations benefit every SWIFT run: being a cheapskate in a shared code helps everyone.
+-->
+
+---
+
+# Zooms Scale!! With Physics And Everything
+
+<div class="body"><div class="grid grid-cols-[1.4fr_1fr] gap-8 items-center">
+<img src="/img/zoom_scaling.png" class="fig bg-white max-h-108 mx-auto" alt="MPI strong scaling of zoom runs, EAGLE physics and DMO" />
+<div>
+
+- Distributed zoom runs now work, with **full physics**
+- Imbalance can reach **5%**, but often **~30%** on average
+- The boundary exacerbates comms (next!)
+- Better exchanges are in progress
+
+</div>
+</div></div>
+
+<!--
+Strong scaling, wall-clock vs MPI rank count, EAGLE-model hydro and DMO, against perfect scaling (dashed). Numbers on imbalance from the HPC Days 26 talk.
+-->
+---
+
+# The Issues Still To Solve With Partitioning
+
+<ZoomCommsExplorer class="mt-2" />
+
+<!--
+Interactive. Counts are 3D (scripts/zoom_comms.py): 32^3 background cells, the central void cell holds 16^3 zoom cells, ranks are equal azimuthal wedges around the zoom region, so every rank owns zoom cells and the background next to them (worst case). Every gravity pair closer than r split across ranks is a comm. The map is the mid-plane slice.
+Show: at r = 17.6 Mpc (global mesh) the background cells overlapping the zoom region need comms with every off-rank zoom cell within r: background-zoom dominates. Slide r down to 1.7 Mpc (zoom mesh): it collapses. Then slide ranks up.
 -->
 
 ---
@@ -611,53 +716,15 @@ clicks: 1
 <div class="credit">Credit: Stephen Wilkins, Chris Lovell</div>
 
 ---
-
-# Simulations Don't Make Photons
-
-<div class="grid grid-cols-[1fr_1.2fr] gap-8 mt-2 items-center">
-<div>
-
-- SPS, IMF, nebular, dust, AGN, instruments...
-- **Every choice is a model**
-- And you want to vary them all
-
-<div v-click class="mt-10 text-lg">So: <strong>flexible</strong> <em>and</em> <strong>fast</strong>.</div>
-
-</div>
-<img src="/img/emission_tree.png" class="fig bg-white max-h-100 mx-auto" alt="an emission model tree" />
-</div>
-
+clicks: 8
 ---
 
-# Inference Eats Forward Models
+# Forward Modelling Isn't Cheap Either
 
-<div class="body">
-<div class="flex items-center justify-center gap-4 text-lg">
-<div class="term text-center">θ<div class="text-xs muted">physics + model choices</div></div>
-<span class="accent text-3xl">→</span>
-<div class="term text-center" style="border-color: var(--warn)">forward model<div class="text-xs muted">Synthesizer</div></div>
-<span class="accent text-3xl">→</span>
-<div class="term text-center">x<div class="text-xs muted">photometry · spectra · images</div></div>
-<span class="accent text-3xl">→</span>
-<div class="term text-center">train<div class="text-xs muted">SBI</div></div>
-</div>
-
-<div v-click class="text-center mt-14 text-xl">× <span class="warn">millions</span> of (θ, x) pairs</div>
-
-<div v-click class="text-center mt-4 muted">The forward model sets the budget.</div>
-
-</div>
-
----
-
-# Why Bother Being Fast?
-
-<div class="body"><SpeedChart /></div>
-
-<div class="credit">Synference: <a href="https://arxiv.org/abs/2511.10640" target="_blank">Harvey, Lovell et al. 2026</a> · timed on 3000 JADES galaxies with spectroscopic redshifts</div>
+<div class="body"><ForwardCost :step="$clicks" /></div>
 
 <!--
-Interactive: drag to Euclid / Rubin. Amortised inference is milliseconds per object, but only because a fast forward model built the training set.
+Every step of a forward model is a modelling choice, and to be honest about the uncertainty you vary them. Click through (numbers are indicative: several of these, e.g. nebular parameters and escape fraction, are really continuous ranges, so this is a lower bound): each choice multiplies the number of model variations (4x4x3x3x3x3x4 = 5,184 by the end). The option lists are representative, not exhaustive. Last click: and every one of those has to be run over the simulation, N_gal x N_part x N_lambda. So it has to be flexible and cheap.
 -->
 
 ---
@@ -683,22 +750,86 @@ Interactive: drag to Euclid / Rubin. Amortised inference is milliseconds per obj
 # The Building Blocks
 
 <div class="body">
-<div class="grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 mt-10 items-center text-center">
-<div class="term"><div class="accent">Galaxy</div><div class="text-sm muted mt-2">stars · gas · black holes<br>particle or parametric</div></div>
-<div class="accent text-2xl">→</div>
-<div class="term"><div class="accent">EmissionModel</div><div class="text-sm muted mt-2">grids (SPS + Cloudy)<br>extract · attenuate · combine</div></div>
-<div class="accent text-2xl">→</div>
-<div class="term"><div class="accent">Instruments</div><div class="text-sm muted mt-2">filters · resolution<br>PSFs · noise</div></div>
+<div class="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-2 items-center text-center text-sm">
+<div class="term"><div class="accent">Galaxy</div><div class="muted mt-2">stars · gas · BHs<br>particle · param.</div></div>
+<div class="accent text-xl">→</div>
+<div class="term"><div class="accent">EmissionModel</div><div class="muted mt-2">grids (SPS + Cloudy)<br>extract · attenuate</div></div>
+<div class="accent text-xl">→</div>
+<div class="term"><div class="accent">Emissions</div><div class="muted mt-2">Sed<br>LineCollection</div></div>
+<div class="accent text-xl">→</div>
+<div class="term"><div class="accent">Instruments</div><div class="muted mt-2">filters · resolution<br>PSFs · noise</div></div>
 </div>
 
-<div class="term mt-10 text-sm">
-<div class="muted"># observables</div>
-Sed · PhotometryCollection · ImageCollection · SpectralCube · LineCollection
+<div class="grid grid-cols-[1.35fr_1fr] gap-6 mt-8 text-sm">
+<div class="term">
+<div class="muted mb-1"># instrument → observable</div>
+<table class="inst">
+<tbody>
+<tr><td>PhotometricInstrument</td><td>photometry</td></tr>
+<tr><td>PhotometricImager</td><td>images (+ PSFs, noise)</td></tr>
+<tr><td>SpectroscopicInstrument</td><td>spectra (+ noise)</td></tr>
+<tr><td>IntegratedFieldUnit</td><td>data cubes (+ PSFs, noise)</td></tr>
+<tr><td>LineImager</td><td>line maps (+ PSFs, noise)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="term">
+<div class="muted mb-1"># premade, ready to go</div>
+<table class="inst">
+<tbody>
+<tr><td>JWST</td><td>NIRCam (W · M · N) · MIRI</td></tr>
+<tr><td>HST</td><td>WFC3 UVIS · WFC3 IR · ACS WFC</td></tr>
+<tr><td>Euclid</td><td>NISP · VIS</td></tr>
+<tr><td>GALEX</td><td>FUV · NUV</td></tr>
+</tbody>
+</table>
+<div class="muted text-xs mt-2">...or any SVO filter, top hats, your own</div>
+<div class="warn text-xs mt-1">more premade instruments on the way</div>
+</div>
 </div>
 
-<div class="text-center mt-8">One model, any galaxy, any instrument.</div>
+<div class="text-center mt-6">One model, any galaxy, any instrument.</div>
+
+<style>
+.inst { width: 100%; border-collapse: collapse; }
+.inst td { padding: 2px 4px; border-bottom: 1px solid var(--grid); }
+.inst td:first-child { color: var(--accent); white-space: nowrap; padding-right: 12px; }
+</style>
 
 </div>
+
+---
+
+# The Building Blocks: EmissionModel
+
+<div class="body">
+<div class="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-2 items-center text-center text-sm">
+<div class="term" style="opacity:0.25"><div class="accent">Galaxy</div><div class="muted mt-2">stars · gas · BHs<br>particle · param.</div></div>
+<div class="text-xl" style="color:#333">→</div>
+<div class="term em-hot"><div class="warn">EmissionModel</div><div class="mt-2">grids (SPS + Cloudy)<br>extract · attenuate</div></div>
+<div class="text-xl" style="color:#333">→</div>
+<div class="term" style="opacity:0.25"><div class="accent">Emissions</div><div class="muted mt-2">Sed<br>LineCollection</div></div>
+<div class="text-xl" style="color:#333">→</div>
+<div class="term" style="opacity:0.25"><div class="accent">Instruments</div><div class="muted mt-2">filters · resolution<br>PSFs · noise</div></div>
+</div>
+
+<div class="grid grid-cols-4 gap-4 mt-12 text-sm text-center">
+<div class="term"><div class="theory">extraction</div><div class="muted mt-1">pull spectra / lines from a grid</div></div>
+<div class="term"><div style="color:#f472b6">generation</div><div class="muted mt-1">dust emission, AGN torus...</div></div>
+<div class="term"><div class="warn">transformation</div><div class="muted mt-1">dust curves, IGM, escape fractions</div></div>
+<div class="term"><div class="accent">combination</div><div class="muted mt-1">add emissions together</div></div>
+</div>
+
+<div class="text-center mt-10">Four operations, chained into a <strong>tree</strong>, any of them masked to a subset of particles.</div>
+</div>
+
+<style>
+.em-hot { border-color: var(--warn); box-shadow: 0 0 18px color-mix(in srgb, var(--warn) 45%, transparent); transform: scale(1.08); }
+</style>
+
+<!--
+Zoom in on the EmissionModel: everything is built from four operation types (extraction, generation, transformation, combination), linked into a tree. Any operation can take a property mask (e.g. young stars only) or wavelength mask. Next slide: a real one.
+-->
 
 ---
 clicks: 11
@@ -759,55 +890,59 @@ Click 11: variation mode. Defaults fesc x2, tau_v x3 = the docs example: 6 combi
 
 # Is It Actually Fast Though?
 
-<div class="grid grid-cols-2 gap-8 mt-2 items-center">
-<div class="text-center">
-<img src="/perf/nparticles_performance_spectra_nlam9244_nt32.png" class="fig bg-white max-h-80 mx-auto" alt="spectra runtime vs number of particles" />
-<div class="text-sm mt-2">integrated spectra: <strong>~1 ms</strong>, 10³ → 10⁵ particles</div>
+<div class="body"><div class="grid grid-cols-2 gap-10 items-start">
+<div>
+<div class="phead"># problem size: one galaxy, N stars</div>
+<img src="/perf/nparticles_performance_spectra_nlam9244_nt32.png" class="fig bg-white max-h-76 mx-auto" alt="spectra runtime vs number of star particles" />
+<div class="pcap">integrated spectrum: <strong>~1 ms</strong>, flat from 10³ to 10⁵ stars<br><span class="muted">per-particle spectra: grows linearly, still ≲ 0.1 s</span></div>
 </div>
-<div class="text-center">
-<img src="/perf/exclusive_docs_int_spectra_cic_totThreads32_nstars1000000.png" class="fig bg-white max-h-80 mx-auto" alt="thread scaling of integrated spectra for 1e6 particles" />
-<div class="text-sm mt-2">10⁶ particles: <strong>~12×</strong> on 32 threads</div>
+<div>
+<div class="phead"># shared-memory (OpenMP) scaling: 10⁶ stars</div>
+<img src="/perf/exclusive_docs_int_spectra_cic_totThreads32_nstars1000000.png" class="fig bg-white max-h-76 mx-auto" alt="thread scaling of integrated spectra for 10^6 star particles" />
+<div class="pcap"><strong>~12×</strong> faster on 32 threads<br><span class="muted">top: time per kernel · bottom: speedup vs perfect (dash-dot)</span></div>
 </div>
-</div>
+</div></div>
 
-<div class="credit">COSMA8 (2 × AMD EPYC 7763) · 9244 wavelength bins · <a href="https://synthesizer-project.github.io/synthesizer/performance/performance.html" target="_blank">synthesizer-project.github.io/synthesizer/performance</a></div>
+<div class="credit">one COSMA8 node (2 × AMD EPYC 7763) · 32 threads · 9,244 wavelength bins · <a href="https://synthesizer-project.github.io/synthesizer/performance/performance.html" target="_blank">synthesizer-project.github.io/synthesizer/performance</a></div>
 
 ---
 
 # Throwing Nodes At It
 
-<div class="grid grid-cols-[1fr_1.3fr] gap-8 mt-2 items-center">
-<div class="text-center">
-<img src="/perf/pipeline_timing_scaling.png" class="fig bg-white max-h-80 mx-auto" alt="Pipeline runtime vs particle count" />
-<div class="text-sm mt-2">full Pipeline, everything on: <strong>O(n)</strong></div>
+<div class="body"><div class="grid grid-cols-[1.1fr_1.3fr] gap-8 items-start">
+<div>
+<div class="phead"># the full Pipeline, everything on</div>
+<img src="/perf/pipeline_timing_scaling.png" class="fig bg-white max-h-76 mx-auto" alt="Pipeline runtime vs star particles per galaxy" />
+<div class="pcap">10 galaxies · black: total · <strong>O(n)</strong> in particles<br><span class="muted">10⁴ stars each: ~5 s for all 10, on 32 threads</span></div>
+<div class="pout">→ 220 spectra · 1,760 fluxes · 55,880 lines · 1,760 imgs</div>
 </div>
-<div class="text-center">
-<img src="/perf/mpi_strong_scaling.png" class="fig bg-white mx-auto" alt="MPI strong scaling of the Pipeline" />
-<div class="text-sm mt-2">1,000 galaxies over MPI: <strong>near-ideal</strong> to 32 ranks</div>
+<div>
+<div class="phead"># distributed (MPI) strong scaling</div>
+<img src="/perf/mpi_strong_scaling.png" class="fig bg-white mx-auto" alt="MPI strong scaling of the Pipeline and parallel efficiency" />
+<div class="pcap">1,000 galaxies of 10⁴ stars, 16 threads per rank<br><strong>97%</strong> parallel efficiency at 32 ranks (4 nodes)</div>
+<div class="pout">→ 22,000 spectra · 176,000 fluxes · 5.6M lines · 176,000 images</div>
 </div>
-</div>
+</div></div>
 
-<div class="credit">Pipeline: LOS optical depths, SFHs, spectra, photometry, lines, images (rest + observer frame) · 16 threads per rank, 4 COSMA8 nodes</div>
+<div class="credit">per galaxy: 11 PacmanEmission spectra (9,244 λ) × rest + obs · 8 NIRCam bands (L + F, + images) · 254 lines (L + F) · SFZH, SFH, LOS τ · COSMA8</div>
 
 ---
 
-# Back To TESSERA
+# So What Would Yours Cost?
 
-<div class="grid grid-cols-[1fr_1.3fr] gap-8 mt-2 items-center">
-<div>
+<div class="body"><PipelineCost /></div>
 
-- Every galaxy, every zoom, a full SED
-- LFs and colours emulated **as observables**
-- Run as each zoom finishes
-
-</div>
-<img src="/tessera/lf_global_shark_g_z0.png" class="fig bg-white max-h-108 mx-auto" alt="global g-band LF" />
-</div>
+<!--
+Interactive, back of the envelope. Per-galaxy cost read off the full-Pipeline benchmark (10 galaxies, PacmanEmission + dust, photometry, lines, images, 32 threads), interpolated in particle number. Threads: Amdahl with a 95% parallel fraction (12x at 32, as measured). Ranks: 97% efficient. Particle mass sets the mean particles per galaxy via a z~0 Schechter GSMF (log M* 10.7, alpha -1.3) from 100 particles up to 1e12 Msun. Note the MPI benchmark's per-galaxy cost (with gas and BHs) is a few times higher than the Pipeline profile, so treat this as optimistic within a factor of a few.
+Try: 1e5 galaxies at 1e6 Msun on a laptop vs 8 nodes.
+Outputs per galaxy are what the benchmark actually produces: test grid (9,244 wavelengths, 254 lines), PacmanEmission with 11 saved emissions, JWST NIRCam wide (8 filters), images for every saved emission, rest + observer frame.
+-->
 
 ---
 
 # Ongoing Work (i.e. The To-Do List)
 
+<div class="body">
 <div class="grid grid-cols-2 gap-6 mt-4">
 <div class="term"><div class="accent mb-1">Learning the Universe</div><div class="muted text-sm">picked up as the forward model for the collaboration</div></div>
 <div class="term"><div class="accent mb-1">Radio</div><div class="muted text-sm">radio emission from star-forming regions</div></div>
@@ -816,7 +951,43 @@ Click 11: variation mode. Defaults fesc x2, tau_v x3 = the docs example: 6 combi
 
 <div class="text-center mt-10"><strong>24 papers</strong> <span class="muted">already using Synthesizer, and many more in the works</span></div>
 
+</div>
+
 <div class="credit"><a href="https://synthesizer-project.github.io/synthesizer/publications/publications.html" target="_blank">synthesizer-project.github.io/synthesizer/publications</a></div>
+
+---
+clicks: 2
+---
+
+# Back To TESSERA
+
+<div class="obs">
+  <div v-for="col in [{ t: 'g-band luminosity function', k: 'lf', f: ['lf_regions_shark_g_z0.png', 'lf_global_shark_g_z0.png', 'lf_sweep_shark_g_z0.png'] }, { t: 'g − r colour', k: 'gr', f: ['pdf_regions_shark_g-r_z0.png', 'pdf_global_shark_g-r_z0.png', 'pdf_sweep_shark_g-r_z0.png'] }]" :key="col.k" class="col">
+    <div class="text-sm mb-2 accent text-center">{{ col.t }}</div>
+    <div class="frame">
+      <img v-for="(f, i) in col.f" :key="f" :src="`tessera/${f}`" :class="['fig', 'bg-white', { on: i === Math.min($clicks, 2) }]" :alt="`${col.t}, stage ${i + 1}`" />
+    </div>
+  </div>
+</div>
+
+<div class="text-center text-sm mt-3">
+<span v-if="$clicks === 0">Emulator vs <strong>held-out zooms</strong>: every galaxy forward modelled by Synthesizer</span>
+<span v-else-if="$clicks === 1">Emulated <strong>global</strong> observables for new parameter draws (blue) vs the fiducial (grey)</span>
+<span v-else>Sweep one parameter at a time: what each does to the <strong>observables</strong></span>
+</div>
+
+<style>
+.obs { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; height: calc(100% - 7rem); }
+.obs .col { display: flex; flex-direction: column; min-height: 0; }
+.obs .frame { position: relative; flex: 1; min-height: 0; }
+.obs .frame img { position: absolute; inset: 0; margin: auto; max-width: 100%; max-height: 100%; opacity: 0; transition: opacity 0.4s; }
+.obs .frame img.on { opacity: 1; }
+</style>
+
+<!--
+Synthesizer inside TESSERA: every galaxy in every zoom gets a full SED from SHARK's star formation histories, so luminosity functions and colours are emulated as observables directly.
+Click 0: held-out regions, emulator (blue band) vs measured (points). Click 1: global LF / colour distribution for new parameter draws vs fiducial. Click 2: one-at-a-time parameter sweeps (cosmology + SHARK parameters).
+-->
 
 ---
 layout: full
@@ -864,10 +1035,10 @@ class: text-center
     <img src="/img/qr_slides.png" class="h-36 rounded mx-auto" alt="QR code to these slides" />
     <div class="text-xs muted mt-1"><a href="https://willjroper.github.io/DurhamColloquium_10-26_Cheapskate/" target="_blank">these slides</a></div>
   </div>
-  <div class="text-left text-sm leading-loose">
-    <div><span class="accent">synthesizer</span> <a href="https://synthesizer-project.github.io/" target="_blank">synthesizer-project.github.io</a></div>
-    <div><span class="accent">swift</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://swift.strw.leidenuniv.nl/" target="_blank">swift.strw.leidenuniv.nl</a></div>
-    <div><span class="accent">tessera</span> &nbsp;&nbsp;&nbsp; <a href="https://arxiv.org/abs/2604.17981" target="_blank">arXiv:2604.17981</a></div>
+  <div class="text-left text-sm leading-loose grid grid-cols-[auto_auto] gap-x-4 justify-items-start">
+    <span class="accent">synthesizer</span><a href="https://synthesizer-project.github.io/" target="_blank">synthesizer-project.github.io</a>
+    <span class="accent">swift</span><a href="https://swift.strw.leidenuniv.nl/" target="_blank">swift.strw.leidenuniv.nl</a>
+    <span class="accent">tessera</span><a href="https://arxiv.org/abs/2604.17981" target="_blank">arXiv:2604.17981</a>
   </div>
 </div>
 

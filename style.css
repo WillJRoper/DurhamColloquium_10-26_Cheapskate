@@ -192,3 +192,8 @@
 .muted a {
   color: inherit;
 }
+
+/* plot header + caption pairs on the performance slides */
+.phead { color: var(--accent); font-size: 0.8rem; margin-bottom: 6px; }
+.pcap { font-size: 0.8rem; text-align: center; margin-top: 8px; line-height: 1.5; }
+.pout { font-size: 0.72rem; text-align: center; margin-top: 6px; color: var(--warn); }
